@@ -54,3 +54,20 @@ class MachineTest(unittest.TestCase):
         self.assertEqual(machine.racks["A"].quantity, 0)
         self.assertEqual(machine.coins[Coin.QUARTER], 5)
         self.assertEqual(machine.amount, 25)
+
+    def test_user_get_back_money(self):
+            racks = [ Rack("A", "Biscuits", 100) ]
+            machine = Machine(racks)
+            machine.refill("A", 1)
+            machine.insertCoin(Coin.QUARTER)
+            machine.insertCoin(Coin.QUARTER)
+            machine.insertCoin(Coin.QUARTER)
+            machine.insertCoin(Coin.QUARTER)
+            machine.insertCoin(Coin.QUARTER)
+            machine.insertCoin(Coin.QUARTER)
+            machine.pressButton("A")
+            machine.moneyBack()
+
+            self.assertEqual(machine.racks["A"].quantity, 0)
+            self.assertEqual(machine.coins[Coin.QUARTER], 6)
+            self.assertEqual(machine.amount, 0)
